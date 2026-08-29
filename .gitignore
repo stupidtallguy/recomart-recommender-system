@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Virtual environments
+.venv/
+venv/
+
+# Environment variables
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Raw and processed datasets
+data/raw/*
+data/processed/*
+
+# Keep documentation files
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/README.md
+
+# Trained models
+models/*
+!models/.gitkeep
+
+# Logs
+*.log
+
+# Temporary
+tmp/
+temp/
