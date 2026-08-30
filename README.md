@@ -23,7 +23,7 @@ The system will optimize and evaluate:
 - Serving latency
 
 ## Planned Architecture
-
+```
 Raw Instacart Data
         ↓
 Data Validation
@@ -43,7 +43,7 @@ Diversity / Cold-Start Reranking
 Top-K Recommendations
         ↓
 FastAPI / Redis / PostgreSQL
-
+```
 ## Dataset
 
 Instacart Market Basket Analysis
