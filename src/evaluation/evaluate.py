@@ -1,7 +1,7 @@
 from pathlib import Path
 import json
 from datetime import datetime, timezone
-
+from tqdm.auto import tqdm
 import pandas as pd
 
 from src.evaluation.metrics import (
@@ -62,8 +62,11 @@ def evaluate_model(
 
     all_recommendations = []
 
-
-    for user_id, truth in user_truth.items():
+    for user_id, truth in tqdm(
+            user_truth.items(),
+            total=len(user_truth),
+            desc=f"Evaluating Recall/NDCG@{k}",
+    ):
 
         recommendations = (
             model

@@ -1,0 +1,11 @@
+{
+    "users_evaluated": 206209,
+    "k": 10,
+    "recall_at_k": 0.020931005195783583,
+    "precision_at_k": 0.020706176743013158,
+    "ndcg_at_k": 0.02701107435118585,
+    "generated_at": "2026-09-05T06:23:37.898689+00:00",
+    "model": "item_similarity",
+    "n_neighbors": 50,
+    "candidate_pool_size": 100
+}
