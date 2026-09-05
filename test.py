@@ -1,13 +1,14 @@
-import pandas as pd
+from pyspark.sql import SparkSession
 
-df = pd.read_parquet(
-    "data/processed/interactions.parquet"
+spark = (
+    SparkSession.builder
+    .master("local[*]")
+    .appName("RecoMartTest")
+    .getOrCreate()
 )
 
-print(df.shape)
+print(spark.version)
 
-print(df["user_id"].nunique())
+spark.range(5).show()
 
-print(df["order_number"].max())
-
-print(df.head())
+spark.stop()

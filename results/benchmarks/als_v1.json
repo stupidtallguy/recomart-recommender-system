@@ -1,0 +1,17 @@
+{
+    "users_evaluated": 206209,
+    "k": 10,
+    "recall_at_k": 0.11113864531902695,
+    "precision_at_k": 0.08175685833305045,
+    "ndcg_at_k": 0.12067144083800031,
+    "generated_at": "2026-09-05T07:14:19.362493+00:00",
+    "model": "spark_als_implicit_v1",
+    "interaction_signal": "purchase_count",
+    "rank": 32,
+    "max_iter": 10,
+    "reg_param": 0.05,
+    "alpha": 20.0,
+    "unique_user_item_pairs": 12084910,
+    "training_seconds": 35.38081840000814,
+    "recommendation_generation_seconds": 66.22088300000178
+}

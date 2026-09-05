@@ -18,12 +18,12 @@ The project is intentionally structured around one principle:
 
 All current models are evaluated against the same future validation order for **206,209 users**.
 
-| Model                       |  Recall@10 | Precision@10 |    NDCG@10 |
-| --------------------------- | ---------: | -----------: | ---------: |
-| Global Popularity           |     0.0701 |       0.0706 |     0.0964 |
-| **Repeat Purchase**         | **0.3316** |   **0.2714** | **0.3951** |
-| Item Similarity — Discovery |     0.0209 |       0.0207 |     0.0270 |
-
+| Model | Recall@10 | Precision@10 | NDCG@10 |
+|---|---:|---:|---:|
+| Global Popularity | 0.0701 | 0.0706 | 0.0964 |
+| **Repeat Purchase** | **0.3316** | **0.2714** | **0.3951** |
+| Item Similarity — Discovery | 0.0209 | 0.0207 | 0.0270 |
+| Spark ALS — Purchase Count | 0.1111 | 0.0818 | 0.1207 |
 ### Interpretation
 
 The personalized repeat-purchase baseline strongly outperforms global popularity, demonstrating the importance of habitual purchase behavior in grocery recommendation.
@@ -408,7 +408,7 @@ recomart-recommender-system/
 
 ## Collaborative Filtering
 
-* [ ] **PySpark implicit ALS**
+- [x] PySpark implicit ALS
 * [ ] Interaction-confidence engineering
 * [ ] ALS hyperparameter validation
 * [ ] Latent-factor recommendation analysis
@@ -464,8 +464,40 @@ recomart-recommender-system/
 
 ## Spark ALS — Implicit Collaborative Filtering
 
-The next model introduces matrix factorization using implicit purchase feedback.
+RecoMart uses PySpark ALS with implicit feedback rather than treating
+purchases as explicit ratings.
 
+The first experiment aggregates historical purchases into user-product
+purchase counts and uses those counts as implicit confidence signals.
+
+### Dataset
+
+- 206,209 users
+- 49,641 products observed during training
+- 12,084,910 unique user-product relationships
+- 29,524,435 training interactions
+
+### Configuration
+
+- Rank: 32
+- Iterations: 10
+- Regularization: 0.05
+- Alpha: 20
+- Interaction signal: purchase count
+
+### Validation Result
+
+- Recall@10: 0.1111
+- Precision@10: 0.0818
+- NDCG@10: 0.1207
+
+ALS substantially outperforms global popularity but does not outperform the
+strong personalized repeat-purchase baseline. This indicates that latent
+collaborative preference alone does not fully capture the highly repetitive
+nature of grocery purchasing.
+
+The ALS signal will later be combined with repeat behavior, recency, content,
+and ranking features rather than treated as a standalone final recommender.
 ```text
 User × Product Interaction Strength
                 │
