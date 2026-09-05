@@ -1,0 +1,7 @@
+{
+    "model": "two_tower_v1",
+    "users_evaluated": 206209,
+    "recall_at_10": 0.06720529213191954,
+    "precision_at_10": 0.06464315330562681,
+    "ndcg_at_10": 0.08121678233071337
+}

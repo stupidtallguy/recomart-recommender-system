@@ -1,0 +1,27 @@
+{
+    "users": 206209,
+    "individual_candidate_recall_at_50": {
+        "repeat": 0.5372415544603308,
+        "als": 0.33760185990842845,
+        "content": 0.2020042362659336,
+        "two_tower": 0.19520271046720902
+    },
+    "candidate_union": {
+        "three_source_recall": 0.6131645320388899,
+        "four_source_recall": 0.6302016051031833,
+        "absolute_recall_gain": 0.017037073064293473,
+        "relative_recall_gain": 0.02778548362483057,
+        "mean_three_source_pool_size": 106.31870092963935,
+        "mean_four_source_pool_size": 129.24448011483494
+    },
+    "two_tower_incremental_value": {
+        "mean_unique_candidates_beyond_existing_union": 22.9257791851956,
+        "mean_incremental_relevant_items": 0.1713940710638236,
+        "fraction_users_with_incremental_relevant_item": 0.1385099583432343
+    },
+    "two_tower_average_jaccard_overlap": {
+        "vs_repeat": 0.07277923709450643,
+        "vs_als": 0.26588736988314654,
+        "vs_content": 0.2326764773126106
+    }
+}

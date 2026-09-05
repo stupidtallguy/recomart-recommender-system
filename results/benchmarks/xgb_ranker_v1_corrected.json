@@ -1,0 +1,47 @@
+{
+    "model": "xgboost_lambdamart_v1_corrected",
+    "objective": "rank:ndcg",
+    "users_evaluated": 41114,
+    "features": [
+        "repeat_rank",
+        "als_rank",
+        "content_rank",
+        "repeat_rr",
+        "als_rr",
+        "content_rr",
+        "is_repeat_candidate",
+        "is_als_candidate",
+        "is_content_candidate",
+        "source_count",
+        "user_product_purchase_count",
+        "user_product_reorder_rate",
+        "orders_since_last_purchase",
+        "seen_before",
+        "user_total_interactions",
+        "user_unique_products",
+        "user_latest_order",
+        "product_purchase_count",
+        "product_reorder_rate",
+        "product_log_purchase_count",
+        "aisle_affinity",
+        "department_affinity"
+    ],
+    "best_iteration": 485,
+    "best_internal_ndcg": 0.5251829311383174,
+    "training_seconds": 124.29903439999907,
+    "ranker": {
+        "recall_at_10": 0.35425710028377577,
+        "precision_at_10": 0.2928321253101133,
+        "ndcg_at_10": 0.4235412037219919
+    },
+    "repeat_control_same_users": {
+        "recall_at_10": 0.3315142442755822,
+        "precision_at_10": 0.27178819866712073,
+        "ndcg_at_10": 0.39457774287534747
+    },
+    "delta_vs_repeat": {
+        "recall_at_10": 0.02274285600819359,
+        "precision_at_10": 0.021043926642992594,
+        "ndcg_at_10": 0.028963460846644418
+    }
+}

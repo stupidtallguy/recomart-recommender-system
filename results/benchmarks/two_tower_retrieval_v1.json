@@ -1,0 +1,11 @@
+{
+    "model": "two_tower_v1",
+    "users": 206209,
+    "candidate_products": 49641,
+    "top_k": 50,
+    "embedding_dim": 64,
+    "user_batch_size": 2048,
+    "item_embedding_seconds": 0.10178699999232776,
+    "retrieval_seconds": 3.8078332000004593,
+    "max_gpu_memory_gb": 0.47199201583862305
+}
