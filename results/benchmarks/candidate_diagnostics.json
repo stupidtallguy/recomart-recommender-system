@@ -1,0 +1,20 @@
+{
+    "users": 206209,
+    "mean_candidate_pool_size": 106.31870092963935,
+    "recall_at_candidate_stage": {
+        "repeat_top50": 0.5372415544603308,
+        "als_top50": 0.33760185990842845,
+        "content_top50": 0.2020042362659336,
+        "union": 0.6131645320388899
+    },
+    "average_jaccard_overlap": {
+        "repeat_vs_als": 0.14603771256470596,
+        "repeat_vs_content": 0.0726135491907155,
+        "als_vs_content": 0.2098263576595265
+    },
+    "incremental_relevant_items_per_user": {
+        "als_beyond_repeat": 0.6336095902700658,
+        "content_beyond_repeat": 0.4375657706501656
+    },
+    "average_relevant_items_in_union": 6.051801812723984
+}

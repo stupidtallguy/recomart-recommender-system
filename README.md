@@ -634,3 +634,110 @@ Its primary role in the final architecture is therefore as a complementary candi
 | Content v1                     |     0.0848 |       0.0734 |     0.1020 |
 
 The next phase combines Repeat Purchase, ALS, and Content recommendations into a shared candidate pool before hybrid ranking.
+## Learning-to-Rank — XGBoost LambdaMART
+
+After candidate-generation experiments showed that the union of Repeat Purchase, ALS, and Content candidates increased candidate-stage Recall from **0.5372 to 0.6132**, RecoMart introduced a learned ranking stage.
+
+The candidate pool contains approximately **106 products per user** on average.
+
+Candidate sources include:
+
+* Repeat Purchase
+* Tuned Spark ALS
+* Content-Based Recommendation
+
+### Ranking Features
+
+LambdaMART uses behavioral, retrieval, recency, popularity, and category-affinity signals including:
+
+* Repeat candidate rank
+* ALS candidate rank
+* Content candidate rank
+* Reciprocal-rank features
+* Candidate-source membership
+* Number of candidate sources supporting an item
+* Historical user-product purchase frequency
+* User-product reorder rate
+* Orders since last purchase
+* Previously-purchased indicator
+* Product popularity
+* Product reorder rate
+* User aisle affinity
+* User department affinity
+
+### Ranker Dataset
+
+The ranking dataset is split at the **user level** to prevent candidate rows belonging to the same user from leaking between ranker training and validation.
+
+Training:
+
+```text
+3,335,617 raw candidate rows
+165,095 users
+
+After removing zero-positive queries:
+3,209,647 rows
+156,697 LambdaMART training users
+```
+
+Ranker validation:
+
+```text
+4,373,384 candidate rows
+41,114 held-out users
+```
+
+Every positive training candidate is retained while deterministic negative sampling keeps the training dataset manageable.
+
+### XGBoost LambdaMART
+
+The first learned ranker uses:
+
+```text
+Objective                  rank:ndcg
+Tree method                histogram
+Learning rate              0.05
+Maximum depth              8
+LambdaMART pair method     top-k
+Early stopping             enabled
+```
+
+Training selected iteration **352** based on ranker-development validation NDCG.
+
+### Validation Performance
+
+Performance is compared against Repeat Purchase on the exact same 41,114 users.
+
+| Model                     |  Recall@10 | Precision@10 |    NDCG@10 |
+| ------------------------- | ---------: | -----------: | ---------: |
+| Repeat Purchase           |     0.3315 |       0.2718 |     0.3946 |
+| **XGBoost LambdaMART v1** | **0.3545** |   **0.2929** | **0.4236** |
+
+Absolute improvement:
+
+```text
+Recall@10     +0.0229
+Precision@10  +0.0211
+NDCG@10       +0.0290
+```
+
+This is the first RecoMart model to outperform the strong personalized repeat-purchase baseline under the same evaluation population.
+
+### Most Important Ranking Signals
+
+The strongest features by XGBoost gain include:
+
+1. Repeat-purchase candidate membership
+2. Repeat reciprocal rank
+3. Repeat candidate rank
+4. Previously purchased indicator
+5. ALS candidate membership
+6. Orders since last purchase
+7. User-product purchase frequency
+8. ALS reciprocal rank
+9. ALS candidate rank
+10. Product reorder rate
+
+These results show that grocery recommendation is strongly driven by habitual behavior, but collaborative-filtering, recency, frequency, and item-level behavior provide enough complementary information for a learned ranker to improve Top-K recommendation quality.
+
+The original final test split remains untouched and will be used only after major model development is complete.

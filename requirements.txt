@@ -11,3 +11,4 @@ python-dotenv
 pytest
 sparse-dot-topn>=1.2.0
 pyspark[ml]==4.2.0
+xgboost==3.4.1
