@@ -1,0 +1,15 @@
+{
+    "users_evaluated": 206209,
+    "k": 10,
+    "recall_at_k": 0.08483741792505033,
+    "precision_at_k": 0.07342986969530914,
+    "ndcg_at_k": 0.10202971978711785,
+    "generated_at": "2026-09-05T08:04:35.812649+00:00",
+    "model": "content_v1",
+    "top_aisles": 5,
+    "top_departments": 3,
+    "products_per_aisle": 50,
+    "products_per_department": 50,
+    "department_weight": 0.5,
+    "training_precompute_seconds": 38.55244629998924
+}

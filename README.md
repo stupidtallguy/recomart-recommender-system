@@ -595,3 +595,42 @@ MONITORING
 ```
 
 Every additional layer must justify its complexity through measurable improvement or a clearly defined system capability.
+## Content-Based Recommendation
+
+RecoMart includes an interpretable metadata-based recommender that models user preference for product aisles and departments.
+
+The model builds user profiles from historical purchase behavior and generates candidates using:
+
+* Aisle affinity
+* Department affinity
+* Product popularity within preferred categories
+* Product reorder behavior as a category-level tie-breaking signal
+
+Recommendations are precomputed for all 206,209 users so online-style recommendation lookup remains inexpensive.
+
+### Validation Result
+
+```text
+Recall@10     = 0.0848
+Precision@10  = 0.0734
+NDCG@10       = 0.1020
+```
+
+The content-based model improves Recall@10 by approximately 21% over global popularity, demonstrating that explicit category preferences provide useful personalization.
+
+However, it remains below collaborative filtering and repeat-purchase behavior when used as a standalone next-basket predictor.
+
+Its primary role in the final architecture is therefore as a complementary candidate-generation signal.
+
+### Current Benchmark
+
+| Model                          |  Recall@10 | Precision@10 |    NDCG@10 |
+| ------------------------------ | ---------: | -----------: | ---------: |
+| Global Popularity              |     0.0701 |       0.0706 |     0.0964 |
+| **Repeat Purchase**            | **0.3316** |   **0.2714** | **0.3951** |
+| Item Similarity — Discovery    |     0.0209 |       0.0207 |     0.0270 |
+| ALS v1                         |     0.1111 |       0.0818 |     0.1207 |
+| **ALS v2 — Rank 64 / Alpha 5** | **0.1569** |   **0.1231** | **0.1803** |
+| Content v1                     |     0.0848 |       0.0734 |     0.1020 |
+
+The next phase combines Repeat Purchase, ALS, and Content recommendations into a shared candidate pool before hybrid ranking.
