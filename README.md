@@ -464,40 +464,73 @@ recomart-recommender-system/
 
 ## Spark ALS — Implicit Collaborative Filtering
 
-RecoMart uses PySpark ALS with implicit feedback rather than treating
-purchases as explicit ratings.
+RecoMart uses PySpark ALS with implicit feedback to learn latent collaborative preferences from historical purchasing behavior.
 
-The first experiment aggregates historical purchases into user-product
-purchase counts and uses those counts as implicit confidence signals.
+The training set contains:
 
-### Dataset
+* 29,524,435 purchase interactions
+* 12,084,910 unique user-product relationships
+* 206,209 users
+* 49K+ products represented during training
 
-- 206,209 users
-- 49,641 products observed during training
-- 12,084,910 unique user-product relationships
-- 29,524,435 training interactions
+Historical purchase count is used as the first implicit interaction-strength signal.
 
-### Configuration
+### Hyperparameter Validation
 
-- Rank: 32
-- Iterations: 10
-- Regularization: 0.05
-- Alpha: 20
-- Interaction signal: purchase count
+ALS configurations were compared using the same leakage-free validation set containing the next shopping basket for all 206,209 users.
 
-### Validation Result
+| Configuration                    |  Recall@10 | Precision@10 |    NDCG@10 |
+| -------------------------------- | ---------: | -----------: | ---------: |
+| Rank 16 / Alpha 20 / Reg 0.05    |     0.0942 |       0.0743 |     0.1046 |
+| Rank 32 / Alpha 20 / Reg 0.05    |     0.1111 |       0.0818 |     0.1207 |
+| Rank 64 / Alpha 20 / Reg 0.05    |     0.1273 |       0.0889 |     0.1330 |
+| Rank 32 / Alpha 10 / Reg 0.05    |     0.1239 |       0.0953 |     0.1405 |
+| Rank 64 / Alpha 10 / Reg 0.05    |     0.1438 |       0.1070 |     0.1580 |
+| Rank 64 / Alpha 10 / Reg 0.10    |     0.1452 |       0.1084 |     0.1602 |
+| **Rank 64 / Alpha 5 / Reg 0.05** | **0.1569** |   **0.1231** | **0.1803** |
 
-- Recall@10: 0.1111
-- Precision@10: 0.0818
-- NDCG@10: 0.1207
+### Selected ALS Configuration
 
-ALS substantially outperforms global popularity but does not outperform the
-strong personalized repeat-purchase baseline. This indicates that latent
-collaborative preference alone does not fully capture the highly repetitive
-nature of grocery purchasing.
+The selected ALS-v2 configuration is:
 
-The ALS signal will later be combined with repeat behavior, recency, content,
-and ranking features rather than treated as a standalone final recommender.
+```text
+Rank          = 64
+Alpha         = 5
+Regularization = 0.05
+Iterations    = 10
+Feedback      = Implicit
+Signal        = Historical purchase count
+```
+
+On the full validation population:
+
+```text
+Recall@10     = 0.1569
+Precision@10  = 0.1231
+NDCG@10       = 0.1803
+```
+
+ALS substantially improves over global popularity, demonstrating that latent collaborative structure contributes useful personalized information.
+
+However, the personalized repeat-purchase baseline remains significantly stronger for overall next-basket prediction:
+
+```text
+Repeat Purchase Recall@10 = 0.3316
+ALS-v2 Recall@10          = 0.1569
+```
+
+This reflects the strongly habitual nature of grocery purchasing.
+
+ALS is therefore not treated as the final recommender. Instead, its collaborative scores will become one of several candidate-generation and ranking signals in the later hybrid architecture.
+
+### Engineering Performance
+
+The selected ALS experiments operate on approximately 12.1 million unique user-product pairs.
+
+For the Rank-64 models, local training completes on the development machine and Top-K recommendations are precomputed for all 206,209 users before offline evaluation.
+
+This separates expensive model computation from recommendation-time lookup and follows the same serving pattern planned for the production API.
+
 ```text
 User × Product Interaction Strength
                 │

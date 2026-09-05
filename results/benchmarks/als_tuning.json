@@ -1,0 +1,62 @@
+{
+    "interaction_signal": "purchase_count",
+    "users_evaluated": 206209,
+    "unique_user_item_pairs": 12084910,
+    "experiments": [
+        {
+            "name": "rank64_alpha10",
+            "rank": 64,
+            "reg_param": 0.05,
+            "alpha": 10.0,
+            "recall_at_10": 0.14384375118559134,
+            "precision_at_10": 0.10698805580745749,
+            "ndcg_at_10": 0.1579626567444933,
+            "training_seconds": 115.74226530001033,
+            "recommendation_seconds": 40.12692650000099
+        },
+        {
+            "name": "rank64_alpha10_reg10",
+            "rank": 64,
+            "reg_param": 0.1,
+            "alpha": 10.0,
+            "recall_at_10": 0.14519711859906856,
+            "precision_at_10": 0.10838809169337905,
+            "ndcg_at_10": 0.16019546041374774,
+            "training_seconds": 114.93193820002489,
+            "recommendation_seconds": 39.68367659999058
+        },
+        {
+            "name": "rank48_alpha10",
+            "rank": 48,
+            "reg_param": 0.05,
+            "alpha": 10.0,
+            "recall_at_10": 0.13476627104031397,
+            "precision_at_10": 0.1017225242351207,
+            "ndcg_at_10": 0.1501540761512487,
+            "training_seconds": 68.98382570000831,
+            "recommendation_seconds": 36.761363300000085
+        },
+        {
+            "name": "rank32_alpha10_reg10",
+            "rank": 32,
+            "reg_param": 0.1,
+            "alpha": 10.0,
+            "recall_at_10": 0.12455424210465749,
+            "precision_at_10": 0.09596234887904989,
+            "ndcg_at_10": 0.14148920070719145,
+            "training_seconds": 39.330826499994146,
+            "recommendation_seconds": 35.16601620000438
+        },
+        {
+            "name": "rank64_alpha5",
+            "rank": 64,
+            "reg_param": 0.05,
+            "alpha": 5.0,
+            "recall_at_10": 0.15690354616048052,
+            "precision_at_10": 0.123071252952102,
+            "ndcg_at_10": 0.18032008338991334,
+            "training_seconds": 115.51344179999433,
+            "recommendation_seconds": 39.352272899996024
+        }
+    ]
+}
