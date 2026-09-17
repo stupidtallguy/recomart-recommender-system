@@ -1,0 +1,22 @@
+{
+  "status": "passed",
+  "completed_at": "2026-09-17T06:47:34.352404+00:00",
+  "base_url": "http://127.0.0.1:8000",
+  "snapshot_id": "2b0836f4a670971b0ebe42289a655631929dd4d63e35c6dea1021b4635b9378a",
+  "known_users": 206209,
+  "catalog_products": 49688,
+  "all_user_ranking_parity_checks": 206209,
+  "sampled_http_recommendation_checks": 100,
+  "unknown_user_fallback": "passed",
+  "product_lookup": "passed",
+  "invalid_input_and_missing_product": "passed",
+  "openapi": "passed",
+  "snapshot_load_seconds": 1.9646200999850407,
+  "sequential_loopback_latency_ms": {
+    "median": 6.649849994573742,
+    "p95": 18.208199995569885,
+    "requests": 100
+  },
+  "latency_scope": "Sequential local smoke check; not a concurrency or production capacity benchmark",
+  "training_modules_imported": []
+}

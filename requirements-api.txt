@@ -1,0 +1,7 @@
+# Small serving runtime; training/Spark dependencies are not needed by the API.
+fastapi==0.141.1
+uvicorn==0.53.0
+pyarrow==25.0.1
+psycopg[binary,pool]==3.3.5
+redis==8.1.0
+python-dotenv==1.2.3

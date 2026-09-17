@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 300" role="img" aria-labelledby="title desc">
+  <title id="title">RecoMart — A better next basket</title>
+  <desc id="desc">An end-to-end grocery recommender, from temporal evaluation to a working product demo.</desc>
+  <rect width="1280" height="300" rx="20" fill="#091540"/>
+  <circle cx="1160" cy="140" r="250" fill="#1B2CC1" opacity=".45"/>
+  <circle cx="1150" cy="150" r="175" fill="none" stroke="#7692FF" opacity=".4"/>
+  <rect x="54" y="46" width="43" height="43" rx="12" fill="#7692FF"/>
+  <path d="M75 53c3 13 5 15 16 17-11 3-14 6-16 17-3-11-6-14-17-17 12-2 14-5 17-17" fill="#091540"/>
+  <text x="113" y="80" fill="white" font-family="Segoe UI,Arial,sans-serif" font-size="35" font-weight="700">RecoMart<tspan fill="#7692FF">.</tspan></text>
+  <text x="54" y="154" fill="white" font-family="Segoe UI,Arial,sans-serif" font-size="47" font-weight="700">A better next basket.</text>
+  <text x="56" y="198" fill="#C6D2FF" font-family="Segoe UI,Arial,sans-serif" font-size="21">Temporal evaluation. Learned ranking. A working product.</text>
+  <text x="56" y="254" fill="#7692FF" font-family="Segoe UI,Arial,sans-serif" font-size="15" letter-spacing="1.4">206,209 SHOPPERS  ·  49,688 PRODUCTS  ·  33.8M INTERACTIONS</text>
+  <path d="M987 108h155l-18 139h-119z" fill="#7692FF"/>
+  <path d="M1023 118V92a41 41 0 0 1 82 0v26" fill="none" stroke="white" stroke-width="10" stroke-linecap="round"/>
+  <path d="M1038 176l21 21 39-43" fill="none" stroke="#091540" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

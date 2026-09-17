@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "users": 206209,
+  "independently_recomputed": {
+    "global_popularity": {
+      "recall_at_10": 0.0699419324905283,
+      "precision_at_10": 0.07211178949512388,
+      "ndcg_at_10": 0.09761640229098201,
+      "hit_rate_at_10": 0.4570266089258956,
+      "catalog_coverage_at_10": 0.00020133687686236612
+    },
+    "repeat_purchase": {
+      "recall_at_10": 0.3316215515947077,
+      "precision_at_10": 0.27589629938557486,
+      "ndcg_at_10": 0.3990595067254628,
+      "hit_rate_at_10": 0.8563641742116008,
+      "catalog_coverage_at_10": 0.796206813239913
+    },
+    "repeat_with_popularity_fill": {
+      "recall_at_10": 0.33253469483631176,
+      "precision_at_10": 0.2762958939716501,
+      "ndcg_at_10": 0.3995333937241295,
+      "hit_rate_at_10": 0.8576250309152365,
+      "catalog_coverage_at_10": 0.796206813239913
+    },
+    "als_v2": {
+      "recall_at_10": 0.15491368734011585,
+      "precision_at_10": 0.12348103138078358,
+      "ndcg_at_10": 0.1776014379860866,
+      "hit_rate_at_10": 0.6480997434641553,
+      "catalog_coverage_at_10": 0.05232745429652895
+    },
+    "content_v1": {
+      "recall_at_10": 0.0846438529871815,
+      "precision_at_10": 0.07487549040051598,
+      "ndcg_at_10": 0.10299750317226228,
+      "hit_rate_at_10": 0.4752411388445703,
+      "catalog_coverage_at_10": 0.02204638801642909
+    },
+    "selected_lambdamart": {
+      "recall_at_10": 0.3543763843781024,
+      "precision_at_10": 0.2967217725705474,
+      "ndcg_at_10": 0.42603294613590237,
+      "hit_rate_at_10": 0.8726195267907803,
+      "catalog_coverage_at_10": 0.7015382137392284
+    }
+  },
+  "auditor_sha256": "6b2e3d429c25440eb74fb9a545fc760bfc4bce068ebc352d97def81933444e0b",
+  "benchmark_sha256": "da376eee386a5c2d0377208ae0668ee8b8b1607a22840541b50b62c78c13f359"
+}

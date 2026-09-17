@@ -1,0 +1,144 @@
+{
+    "top_k": 10,
+    "catalog_size": 49641,
+    "models": {
+        "lambda_v1_corrected": {
+            "users": 41114,
+            "ranking": {
+                "overall_recall_at_10": 0.35425710028378665,
+                "repeat_recall_at_10": 0.6058990013448812,
+                "novel_recall_at_10": 0.004340981223319407,
+                "novel_hit_rate": 0.011648639011054321
+            },
+            "candidate_ceiling": {
+                "overall_candidate_recall": 0.6139822376265335,
+                "repeat_candidate_recall": 0.9446748798244514,
+                "novel_candidate_recall": 0.1609469411721059
+            },
+            "recommendation_composition": {
+                "unique_products_recommended": 22544,
+                "catalog_coverage_at_10": 0.4541407304445922,
+                "fraction_recommendations_seen_before": 0.9527922362212385,
+                "fraction_recommendations_novel": 0.04720776377876146
+            },
+            "history_buckets": {
+                "01_<=5_orders": {
+                    "users": 15460,
+                    "recall_at_10": 0.3260674315999949,
+                    "users_with_novel_truth": 13748,
+                    "novel_recall_at_10": 0.009686615436138616
+                },
+                "02_6_10_orders": {
+                    "users": 8788,
+                    "recall_at_10": 0.3620849539775521,
+                    "users_with_novel_truth": 7317,
+                    "novel_recall_at_10": 0.001593701122196407
+                },
+                "03_11_20_orders": {
+                    "users": 8133,
+                    "recall_at_10": 0.3717698266282805,
+                    "users_with_novel_truth": 6434,
+                    "novel_recall_at_10": 0.00015542430836182778
+                },
+                "04_>20_orders": {
+                    "users": 8733,
+                    "recall_at_10": 0.37997450509660446,
+                    "users_with_novel_truth": 6153,
+                    "novel_recall_at_10": 4.063058670567203e-05
+                }
+            }
+        },
+        "lambda_v2_tt_v1": {
+            "users": 41114,
+            "ranking": {
+                "overall_recall_at_10": 0.3544289061642534,
+                "repeat_recall_at_10": 0.6054433966063327,
+                "novel_recall_at_10": 0.004721476098307225,
+                "novel_hit_rate": 0.013134434803280637
+            },
+            "candidate_ceiling": {
+                "overall_candidate_recall": 0.6310217421048903,
+                "repeat_candidate_recall": 0.9468858862872142,
+                "novel_candidate_recall": 0.19696566949586738
+            },
+            "recommendation_composition": {
+                "unique_products_recommended": 22537,
+                "catalog_coverage_at_10": 0.45399971797506095,
+                "fraction_recommendations_seen_before": 0.9525806294692806,
+                "fraction_recommendations_novel": 0.04741937053071943
+            },
+            "history_buckets": {
+                "01_<=5_orders": {
+                    "users": 15460,
+                    "recall_at_10": 0.3270979768071159,
+                    "users_with_novel_truth": 13748,
+                    "novel_recall_at_10": 0.010555143559807594
+                },
+                "02_6_10_orders": {
+                    "users": 8788,
+                    "recall_at_10": 0.36137771031482957,
+                    "users_with_novel_truth": 7317,
+                    "novel_recall_at_10": 0.0017117671176711765
+                },
+                "03_11_20_orders": {
+                    "users": 8133,
+                    "recall_at_10": 0.3715462171008208,
+                    "users_with_novel_truth": 6434,
+                    "novel_recall_at_10": 0.00015542430836182778
+                },
+                "04_>20_orders": {
+                    "users": 8733,
+                    "recall_at_10": 0.3798789218677344,
+                    "users_with_novel_truth": 6153,
+                    "novel_recall_at_10": 4.063058670567203e-05
+                }
+            }
+        },
+        "lambda_v3_tt_v1_tt_v2": {
+            "users": 41114,
+            "ranking": {
+                "overall_recall_at_10": 0.35438976668302075,
+                "repeat_recall_at_10": 0.6055503427246652,
+                "novel_recall_at_10": 0.004734934998070409,
+                "novel_hit_rate": 0.013520741709259479
+            },
+            "candidate_ceiling": {
+                "overall_candidate_recall": 0.6417270970124395,
+                "repeat_candidate_recall": 0.948755974413351,
+                "novel_candidate_recall": 0.2208079023902673
+            },
+            "recommendation_composition": {
+                "unique_products_recommended": 22480,
+                "catalog_coverage_at_10": 0.4528514735803066,
+                "fraction_recommendations_seen_before": 0.95256603590018,
+                "fraction_recommendations_novel": 0.047433964099820036
+            },
+            "history_buckets": {
+                "01_<=5_orders": {
+                    "users": 15460,
+                    "recall_at_10": 0.32702838011575275,
+                    "users_with_novel_truth": 13748,
+                    "novel_recall_at_10": 0.01059508193200606
+                },
+                "02_6_10_orders": {
+                    "users": 8788,
+                    "recall_at_10": 0.3616088489363856,
+                    "users_with_novel_truth": 7317,
+                    "novel_recall_at_10": 0.001675847955060747
+                },
+                "03_11_20_orders": {
+                    "users": 8133,
+                    "recall_at_10": 0.37121377792105426,
+                    "users_with_novel_truth": 6434,
+                    "novel_recall_at_10": 0.00015542430836182778
+                },
+                "04_>20_orders": {
+                    "users": 8733,
+                    "recall_at_10": 0.3798948689489104,
+                    "users_with_novel_truth": 6153,
+                    "novel_recall_at_10": 6.771764450945338e-05
+                }
+            }
+        }
+    }
+}

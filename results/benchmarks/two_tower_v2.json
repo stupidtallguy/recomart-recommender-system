@@ -1,0 +1,14 @@
+{
+    "model": "two_tower_v2_history_aware",
+    "users_evaluated": 206209,
+    "top10": {
+        "recall_at_10": 0.06838106945556045,
+        "precision_at_10": 0.05358883462894442,
+        "ndcg_at_10": 0.0810068493819819
+    },
+    "candidate_retrieval": {
+        "recall_at_50": 0.15398923094111733,
+        "precision_at_50": 0.026467224999878764,
+        "ndcg_at_50": 0.1068755975435346
+    }
+}

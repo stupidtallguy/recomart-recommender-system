@@ -1,0 +1,1 @@
+"""RecoMart interactive storefront demo."""

@@ -1,0 +1,67 @@
+{
+    "users_evaluated": 206209,
+    "individual_sources": {
+        "repeat": {
+            "candidate_recall_at_50": 0.5372415544603358,
+            "mean_relevant_items_per_user": 5.2568704566725994
+        },
+        "als": {
+            "candidate_recall_at_50": 0.3376018599084005,
+            "mean_relevant_items_per_user": 3.0753313385933687
+        },
+        "content": {
+            "candidate_recall_at_50": 0.2020042362659241,
+            "mean_relevant_items_per_user": 1.8544098463209657
+        },
+        "two_tower_v1": {
+            "candidate_recall_at_50": 0.19520271046720541,
+            "mean_relevant_items_per_user": 1.9158087183391608
+        },
+        "two_tower_v2": {
+            "candidate_recall_at_50": 0.1539892309411302,
+            "mean_relevant_items_per_user": 1.3233612499939382
+        }
+    },
+    "average_jaccard": {
+        "two_tower_v2_vs_repeat": 0.047383116437419284,
+        "two_tower_v2_vs_als": 0.09644395192295449,
+        "two_tower_v2_vs_content": 0.05458006212416278,
+        "two_tower_v2_vs_two_tower_v1": 0.07703232740210095
+    },
+    "candidate_unions": {
+        "three_source": {
+            "candidate_recall": 0.6131645320389757,
+            "mean_pool_size": 106.31870092963935
+        },
+        "three_source_plus_tt_v1": {
+            "candidate_recall": 0.6302016051032904,
+            "mean_pool_size": 129.24448011483494
+        },
+        "three_source_plus_tt_v2": {
+            "candidate_recall": 0.6255723851677139,
+            "mean_pool_size": 146.0394793631704
+        },
+        "five_source": {
+            "candidate_recall": 0.6410954121117165,
+            "mean_pool_size": 167.65262427925066
+        }
+    },
+    "tt_v1_incremental_beyond_three_source": {
+        "mean_unique_candidates_per_user": 22.9257791851956,
+        "mean_incremental_relevant_items_per_user": 0.1713940710638236,
+        "fraction_users_with_incremental_relevant": 0.1385099583432343,
+        "candidate_recall_absolute_gain": 0.01703707306431468
+    },
+    "tt_v2_incremental_beyond_three_source": {
+        "mean_unique_candidates_per_user": 39.72077843353103,
+        "mean_incremental_relevant_items_per_user": 0.12850554534477157,
+        "fraction_users_with_incremental_relevant": 0.11120756126066272,
+        "candidate_recall_absolute_gain": 0.012407853128738155
+    },
+    "tt_v2_incremental_after_tt_v1": {
+        "mean_unique_candidates_per_user": 38.40814416441572,
+        "mean_incremental_relevant_items_per_user": 0.11420937010508755,
+        "fraction_users_with_incremental_relevant": 0.10013142006410972,
+        "candidate_recall_absolute_gain": 0.010893807008426126
+    }
+}

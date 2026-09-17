@@ -1,0 +1,25 @@
+[server]
+address = "127.0.0.1"
+port = 8501
+headless = true
+
+[browser]
+gatherUsageStats = false
+
+[theme]
+base = "light"
+primaryColor = "#1B2CC1"
+backgroundColor = "#F7F8FC"
+secondaryBackgroundColor = "#EEF1FB"
+textColor = "#091540"
+font = "sans-serif"
+baseRadius = "large"
+buttonRadius = "large"
+borderColor = "#DFE5F3"
+showWidgetBorder = true
+
+[theme.sidebar]
+backgroundColor = "#091540"
+secondaryBackgroundColor = "#172450"
+textColor = "#FFFFFF"
+primaryColor = "#7692FF"

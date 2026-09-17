@@ -1,0 +1,224 @@
+{
+    "schema_version": 1,
+    "architecture_id": "recomart_final_v1",
+    "status": "frozen",
+    "frozen_at": "2026-09-16T06:33:28.093462+00:00",
+    "selection_evidence": "results/benchmarks/diversity_architecture.json",
+    "selection_evidence_sha256": "7efd7e70a796600b9f807c968f427e6be4b74802ecc0b8286bbe74b8792dca7c",
+    "selection_population": "41114 ranker-development validation users",
+    "selection_rule": "Choose fewest sources whose paired 95% lower bounds against all more complex alternatives exceed -0.001 for Recall@10 and NDCG@10.",
+    "selection_accuracy_tolerance": 0.001,
+    "retrieval": {
+        "sources": [
+            "repeat_purchase",
+            "als_v2",
+            "content_v1"
+        ],
+        "top_n_per_source": 50,
+        "repeat_purchase": {
+            "purchase_count_weight": 0.5,
+            "reorder_rate_weight": 0.3,
+            "recency_weight": 0.2,
+            "recency_definition": "last purchase order_number / maximum order_number across the history snapshot"
+        },
+        "als_v2": {
+            "rank": 64,
+            "alpha": 5.0,
+            "reg_param": 0.05,
+            "max_iter": 10,
+            "implicit_prefs": true,
+            "signal": "user-product purchase count",
+            "seed": 42
+        },
+        "content_v1": {
+            "top_aisles": 5,
+            "top_departments": 3,
+            "products_per_aisle": 100,
+            "products_per_department": 100,
+            "department_weight": 0.5
+        },
+        "union": "Unique user-product pairs from all three sources; preserve each source rank and membership."
+    },
+    "ranker": {
+        "type": "xgboost_lambdamart",
+        "feature_columns": [
+            "repeat_rank",
+            "als_rank",
+            "content_rank",
+            "repeat_rr",
+            "als_rr",
+            "content_rr",
+            "is_repeat_candidate",
+            "is_als_candidate",
+            "is_content_candidate",
+            "source_count",
+            "user_product_purchase_count",
+            "user_product_reorder_rate",
+            "orders_since_last_purchase",
+            "seen_before",
+            "user_total_interactions",
+            "user_unique_products",
+            "user_latest_order",
+            "product_purchase_count",
+            "product_reorder_rate",
+            "product_log_purchase_count",
+            "aisle_affinity",
+            "department_affinity"
+        ],
+        "parameters": {
+            "objective": "rank:ndcg",
+            "eval_metric": "ndcg@10",
+            "tree_method": "hist",
+            "max_bin": 256,
+            "eta": 0.05,
+            "max_depth": 8,
+            "min_child_weight": 20,
+            "subsample": 0.8,
+            "colsample_bytree": 0.9,
+            "reg_lambda": 1.0,
+            "reg_alpha": 0.0,
+            "lambdarank_pair_method": "topk",
+            "lambdarank_num_pair_per_sample": 12,
+            "seed": 42
+        },
+        "fixed_boosting_rounds": 486,
+        "feature_dtype": "float32",
+        "remaining_missing_feature_fill": 0,
+        "query_key": "user_id",
+        "prediction_order": [
+            "score descending",
+            "product_id ascending"
+        ],
+        "training_parallelism": "max(1, os.cpu_count() - 1), following the selected trainer",
+        "development_checkpoint": {
+            "path": "models/xgb_ranker_v1_corrected.json",
+            "sha256": "1483f731e1020c51b01e0a4a039dce5597a41f75cd50acb38dba575eada99a72",
+            "use_iteration_range": [
+                0,
+                486
+            ],
+            "note": "Development model; the final-test recipe below requires a separate refit with fixed settings."
+        }
+    },
+    "recommendation_policy": {
+        "top_k": 10,
+        "minimum_novel_slots": 0,
+        "maximum_products_per_aisle": null,
+        "routing_module": "src.serving.routing",
+        "positive_history": "Use available selected ranker for all positive history counts.",
+        "missing_ranker": "Repeat purchase then fill with unique globally popular products.",
+        "zero_history_or_missing_all_personalization": "Global popularity.",
+        "partial_ranker": "Preserve ranker order and fill with unique popular products.",
+        "short_catalog": "Return available unique products and complete=false; do not fabricate products."
+    },
+    "excluded_from_selected_pipeline": [
+        "item_similarity",
+        "two_tower_v1",
+        "two_tower_v2",
+        "dedicated_novel_ranker",
+        "RRF",
+        "mandatory_discovery_quota",
+        "aisle_cap"
+    ],
+    "final_test_protocol": {
+        "status": "not_run",
+        "expected_users": 206209,
+        "ranker_refit": {
+            "feature_history": "data/processed/train_interactions.parquet",
+            "label_target": "data/processed/validation_interactions.parquet",
+            "users": "All users, including the former ranker-development holdout; no final-test labels.",
+            "candidate_sources": "Same three-source candidates generated from training history.",
+            "negative_sampling": {
+                "keep_all_positives": true,
+                "max_negatives_per_user": 15,
+                "negative_order": "Spark xxhash64(user_id, product_id), product_id tie-break",
+                "filter_negatives_before_row_number": true
+            },
+            "remove_zero_positive_training_queries": true,
+            "boosting_rounds": 486,
+            "early_stopping": false
+        },
+        "test_prediction_history": [
+            "data/processed/train_interactions.parquet",
+            "data/processed/validation_interactions.parquet"
+        ],
+        "rebuild_for_test": [
+            "item features",
+            "repeat history",
+            "ALS fit",
+            "content profiles",
+            "three-source candidates",
+            "ranker candidate features",
+            "popularity fallback"
+        ],
+        "test_truth": "data/processed/test_interactions.parquet",
+        "test_truth_access": "Generate and save predictions for the full frozen cohort before opening final-test labels for metric calculation.",
+        "baselines": [
+            "global_popularity",
+            "repeat_purchase",
+            "repeat_with_popularity_fill",
+            "als_v2",
+            "content_v1",
+            "selected_lambdamart"
+        ],
+        "metrics": [
+            "recall_at_10",
+            "precision_at_10",
+            "ndcg_at_10",
+            "hit_rate_at_10",
+            "candidate_recall",
+            "catalog_coverage_at_10",
+            "repeat_recall_at_10",
+            "novel_recall_at_10",
+            "novel_hit_rate_at_10",
+            "aisle_diversity",
+            "history_segments"
+        ],
+        "precision_denominator": 10,
+        "aggregation": "Macro average over all eligible test users; include empty recommendation lists.",
+        "novel_and_repeat_denominators": "Users with at least one corresponding truth product, relative to pre-test history.",
+        "catalog_coverage_denominator": "Distinct products observed in train + validation history; report the exact count.",
+        "history_segments": [
+            "1-2 orders",
+            "3-5 orders",
+            "6-10 orders",
+            "more than 10 orders"
+        ],
+        "zero_history": "Keep the excluded-user first-basket simulation separate; do not mix it into next-basket test scores.",
+        "post_test_rule": "Report the frozen result even if disappointing; no architecture or hyperparameter tuning against this test set.",
+        "output_directory": "models/final_v1"
+    },
+    "reference_implementation_sha256": {
+        "src/models/als.py": "72aa76c7668f7deee1673a6aa1952b76d6c79957070ee40da2cb2f5ad239f815",
+        "src/models/repeat_purchase.py": "0f32f7690c1b6a9f759a3c76be536fb22f08f699fe1f5ec4621a4e0b6861cf0b",
+        "src/models/content_based.py": "3898253bc55558fedd13690f5fb88c87b7c3620c943558ab01ac51e28fe823bf",
+        "src/features/item_features.py": "2b034b0921bac86b69e9b61ecd1cdc207313ff0a0341ee948becb95938bb66fa",
+        "src/features/build_ranker_dataset_v1_corrected.py": "eb019e79b4c2f6a21bbbaf286ddac5a29ecd7b9366cac3c6ee1f2d656e792506",
+        "src/models/run_xgb_ranker_v1_corrected.py": "791043fc5efba4a2cb2f3714f17057fc036d1326cd9dbc24f285187df17f7c54",
+        "src/candidates/build_candidate_store.py": "c9da657c4e084d6be54057b78259da8ad7f777a5830c67b7b51eac56765797ab",
+        "src/serving/routing.py": "5614e08ec69ec3452d64928ca9aad5f6029ad402d2a9bb59b437dc8207e6372b",
+        "src/evaluation/metrics.py": "f13c370aa51dd4287d8e8b48402c42a20f2a075f351de3596e45b46d48a383cb",
+        "src/data/split.py": "a3db2094aa61c1f43d096c82996528b4a95a90b84d38300339e9358473f0d395"
+    },
+    "validation_metrics": {
+        "users": 41114,
+        "recall_at_10": 0.35425710028377577,
+        "precision_at_10": 0.2928321253101133,
+        "ndcg_at_10": 0.4235412037219919,
+        "hit_rate_at_10": 0.8691443303984044,
+        "mean_returned_items": 10.0,
+        "fraction_short_lists": 0.0,
+        "unique_recommended_products": 22544,
+        "catalog_coverage_at_10": 0.4541407304445922,
+        "users_with_novel_truth": 33652,
+        "novel_recall_at_10": 0.004340981223319409,
+        "novel_hit_rate_at_10": 0.011648639011054321,
+        "unique_aisles": 7.275113100160529,
+        "unique_departments": 4.672860825996011,
+        "max_products_in_one_aisle": 2.830568662742618,
+        "dominant_aisle_share": 0.2830568662742618,
+        "aisle_pair_diversity": 0.90441914892467,
+        "fraction_users_over_cap": null
+    },
+    "final_test_used_at_freeze": false
+}

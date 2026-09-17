@@ -1,0 +1,13 @@
+{
+    "model": "two_tower_v2_history_aware",
+    "checkpoint_epoch": 5,
+    "internal_recall_at_50": 0.15861466764042303,
+    "users": 206209,
+    "candidate_products": 49641,
+    "top_k": 50,
+    "embedding_dim": 64,
+    "user_batch_size": 1024,
+    "item_embedding_seconds": 0.22059059998719022,
+    "retrieval_seconds": 6.195204899995588,
+    "max_gpu_memory_gb": 0.22748231887817383
+}

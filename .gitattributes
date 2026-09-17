@@ -1,0 +1,15 @@
+# Frozen provenance checksums cover exact bytes, including line endings.
+# Preserve these files identically in Git objects and every checkout.
+configs/final_architecture.json -text
+results/benchmarks/diversity_architecture.json -text
+src/models/als.py -text
+src/models/repeat_purchase.py -text
+src/models/content_based.py -text
+src/features/item_features.py -text
+src/features/build_ranker_dataset_v1_corrected.py -text
+src/models/run_xgb_ranker_v1_corrected.py -text
+src/candidates/build_candidate_store.py -text
+src/serving/routing.py -text
+src/evaluation/metrics.py -text
+src/data/split.py -text
+src/evaluation/final_test_pipeline.py -text

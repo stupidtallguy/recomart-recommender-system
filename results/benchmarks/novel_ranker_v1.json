@@ -1,0 +1,337 @@
+{
+    "experiment": "dedicated_unseen_ranker_v1",
+    "generated_at": "2026-09-15T18:31:51.617788+00:00",
+    "training_report": "results\\benchmarks\\novel_ranker_v1_training.json",
+    "base_model_sha256": "0295a31f2fdcdffa70981cd611ca35e615b13c84d26d895c9991b6753a336199",
+    "novel_model_sha256": "2d4da407400ffe5c920cad893ba0db91130238768418abc58c701c5ca211353c",
+    "users_evaluated": 41114,
+    "candidate_rows": 6895062,
+    "base_users_without_novel_top10": 36470,
+    "users_with_different_selection_vs_one_slot": 11950,
+    "policy_definition": "Minimum one novel slot. Change only the inserted unseen candidate for users lacking novelty; keep already-satisfied lists and use base scores for final positions.",
+    "policies": {
+        "base_zero_slots": {
+            "users": 41114,
+            "overall": {
+                "recall_at_10": 0.35438976668302075,
+                "precision_at_10": 0.2929196867247497,
+                "ndcg_at_10": 0.42353432118240303
+            },
+            "repeat": {
+                "users_with_repeat_truth": 37940,
+                "repeat_recall_at_10": 0.6055503427246652
+            },
+            "novel": {
+                "users_with_novel_truth": 33652,
+                "novel_recall_at_10": 0.004734934998070409,
+                "novel_hit_rate": 0.013520741709259479
+            },
+            "composition": {
+                "unique_products_recommended": 22480,
+                "catalog_coverage_at_10": 0.4528514735803066,
+                "fraction_recommendations_seen_before": 0.95256603590018,
+                "fraction_recommendations_novel": 0.047433964099820015,
+                "mean_novel_recommendations_per_user": 0.47433964099820014,
+                "novel_count_histogram": {
+                    "0": 36470,
+                    "1": 867,
+                    "2": 634,
+                    "3": 578,
+                    "4": 552,
+                    "5": 518,
+                    "6": 477,
+                    "7": 413,
+                    "8": 363,
+                    "9": 242,
+                    "10": 0
+                }
+            },
+            "history_buckets": {
+                "01_<=5_orders": {
+                    "users": 15460,
+                    "overall_recall_at_10": 0.32702838011575275,
+                    "precision_at_10": 0.2517464424320698,
+                    "ndcg_at_10": 0.3824316598230292,
+                    "repeat_recall_at_10": 0.7347891881135443,
+                    "novel_recall_at_10": 0.01059508193200606,
+                    "novel_hit_rate": 0.030986325283677625,
+                    "fraction_recommendations_novel": 0.10952781371280725
+                },
+                "02_6_10_orders": {
+                    "users": 8788,
+                    "overall_recall_at_10": 0.3616088489363856,
+                    "precision_at_10": 0.2909877105143307,
+                    "ndcg_at_10": 0.4275010888664266,
+                    "repeat_recall_at_10": 0.5975181177932708,
+                    "novel_recall_at_10": 0.001675847955060747,
+                    "novel_hit_rate": 0.0034167008336750035,
+                    "fraction_recommendations_novel": 0.02008420573509331
+                },
+                "03_11_20_orders": {
+                    "users": 8133,
+                    "overall_recall_at_10": 0.37121377792105426,
+                    "precision_at_10": 0.31700479527849024,
+                    "ndcg_at_10": 0.4478520953881528,
+                    "repeat_recall_at_10": 0.5361401650093466,
+                    "novel_recall_at_10": 0.00015542430836182778,
+                    "novel_hit_rate": 0.00031084861672365556,
+                    "fraction_recommendations_novel": 0.007451125046108447
+                },
+                "04_>20_orders": {
+                    "users": 8733,
+                    "overall_recall_at_10": 0.3798948689489104,
+                    "precision_at_10": 0.3453223405473436,
+                    "ndcg_at_10": 0.46965944801086035,
+                    "repeat_recall_at_10": 0.4770530926306328,
+                    "novel_recall_at_10": 6.771764450945338e-05,
+                    "novel_hit_rate": 0.00032504469364537625,
+                    "fraction_recommendations_novel": 0.0022672621092408108
+                }
+            }
+        },
+        "base_minimum_one_slot": {
+            "users": 41114,
+            "overall": {
+                "recall_at_10": 0.3415811882615013,
+                "precision_at_10": 0.27894391204945546,
+                "ndcg_at_10": 0.4136838392484846
+            },
+            "repeat": {
+                "users_with_repeat_truth": 37940,
+                "repeat_recall_at_10": 0.5775674787655186
+            },
+            "novel": {
+                "users_with_novel_truth": 33652,
+                "novel_recall_at_10": 0.013980206724398576,
+                "novel_hit_rate": 0.05684654701057887
+            },
+            "composition": {
+                "unique_products_recommended": 21545,
+                "catalog_coverage_at_10": 0.4340162365786346,
+                "fraction_recommendations_seen_before": 0.8638614583840054,
+                "fraction_recommendations_novel": 0.13613854161599456,
+                "mean_novel_recommendations_per_user": 1.3613854161599455,
+                "novel_count_histogram": {
+                    "0": 0,
+                    "1": 37337,
+                    "2": 634,
+                    "3": 578,
+                    "4": 552,
+                    "5": 518,
+                    "6": 477,
+                    "7": 413,
+                    "8": 363,
+                    "9": 242,
+                    "10": 0
+                }
+            },
+            "history_buckets": {
+                "01_<=5_orders": {
+                    "users": 15460,
+                    "overall_recall_at_10": 0.3190860236959243,
+                    "precision_at_10": 0.24278783958601635,
+                    "ndcg_at_10": 0.37619419898295037,
+                    "repeat_recall_at_10": 0.7062611967067168,
+                    "novel_recall_at_10": 0.019127212680259457,
+                    "novel_hit_rate": 0.08168460867035206,
+                    "fraction_recommendations_novel": 0.1842496765847348
+                },
+                "02_6_10_orders": {
+                    "users": 8788,
+                    "overall_recall_at_10": 0.3491687388897686,
+                    "precision_at_10": 0.27781065088756735,
+                    "ndcg_at_10": 0.41813358931491534,
+                    "repeat_recall_at_10": 0.5689325419205936,
+                    "novel_recall_at_10": 0.012506223982016002,
+                    "novel_hit_rate": 0.05248052480524805,
+                    "fraction_recommendations_novel": 0.11440600819299045
+                },
+                "03_11_20_orders": {
+                    "users": 8133,
+                    "overall_recall_at_10": 0.355040691560676,
+                    "precision_at_10": 0.2998770441411486,
+                    "ndcg_at_10": 0.4356553482735538,
+                    "repeat_recall_at_10": 0.5073099424664139,
+                    "novel_recall_at_10": 0.010193118255179252,
+                    "novel_hit_rate": 0.03870065278209512,
+                    "fraction_recommendations_novel": 0.10522562400098365
+                },
+                "04_>20_orders": {
+                    "users": 8733,
+                    "overall_recall_at_10": 0.3612341951239706,
+                    "precision_at_10": 0.3245963586396365,
+                    "ndcg_at_10": 0.45511188826026666,
+                    "repeat_recall_at_10": 0.4512684421850441,
+                    "novel_recall_at_10": 0.008192821880549532,
+                    "novel_hit_rate": 0.025516008451162035,
+                    "fraction_recommendations_novel": 0.1016260162601626
+                }
+            }
+        },
+        "novel_ranker_minimum_one_slot": {
+            "users": 41114,
+            "overall": {
+                "recall_at_10": 0.3414217425084482,
+                "precision_at_10": 0.2788539183733347,
+                "ndcg_at_10": 0.41360749768501265
+            },
+            "repeat": {
+                "users_with_repeat_truth": 37940,
+                "repeat_recall_at_10": 0.5775674787655186
+            },
+            "novel": {
+                "users_with_novel_truth": 33652,
+                "novel_recall_at_10": 0.013784695163601889,
+                "novel_hit_rate": 0.055747058124331395
+            },
+            "composition": {
+                "unique_products_recommended": 21545,
+                "catalog_coverage_at_10": 0.4340162365786346,
+                "fraction_recommendations_seen_before": 0.8638614583840054,
+                "fraction_recommendations_novel": 0.13613854161599456,
+                "mean_novel_recommendations_per_user": 1.3613854161599455,
+                "novel_count_histogram": {
+                    "0": 0,
+                    "1": 37337,
+                    "2": 634,
+                    "3": 578,
+                    "4": 552,
+                    "5": 518,
+                    "6": 477,
+                    "7": 413,
+                    "8": 363,
+                    "9": 242,
+                    "10": 0
+                }
+            },
+            "history_buckets": {
+                "01_<=5_orders": {
+                    "users": 15460,
+                    "overall_recall_at_10": 0.3188693025370496,
+                    "precision_at_10": 0.24261966364811208,
+                    "ndcg_at_10": 0.3760637668435987,
+                    "repeat_recall_at_10": 0.7062611967067168,
+                    "novel_recall_at_10": 0.018631523383298244,
+                    "novel_hit_rate": 0.07979342449810882,
+                    "fraction_recommendations_novel": 0.1842496765847348
+                },
+                "02_6_10_orders": {
+                    "users": 8788,
+                    "overall_recall_at_10": 0.34897265786422976,
+                    "precision_at_10": 0.27776513427400357,
+                    "ndcg_at_10": 0.41807385368857497,
+                    "repeat_recall_at_10": 0.5689325419205936,
+                    "novel_recall_at_10": 0.012394438101529818,
+                    "novel_hit_rate": 0.05193385267186005,
+                    "fraction_recommendations_novel": 0.11440600819299045
+                },
+                "03_11_20_orders": {
+                    "users": 8133,
+                    "overall_recall_at_10": 0.35476328015937664,
+                    "precision_at_10": 0.29980327062584083,
+                    "ndcg_at_10": 0.435553265522816,
+                    "repeat_recall_at_10": 0.5073099424664139,
+                    "novel_recall_at_10": 0.010074507847868187,
+                    "novel_hit_rate": 0.03776810693192415,
+                    "fraction_recommendations_novel": 0.10522562400098365
+                },
+                "04_>20_orders": {
+                    "users": 8733,
+                    "overall_recall_at_10": 0.3613228706540733,
+                    "precision_at_10": 0.32458490782090305,
+                    "ndcg_at_10": 0.4551385651788322,
+                    "repeat_recall_at_10": 0.4512684421850441,
+                    "novel_recall_at_10": 0.008488036907178718,
+                    "novel_hit_rate": 0.025353486104339348,
+                    "fraction_recommendations_novel": 0.1016260162601626
+                }
+            }
+        }
+    },
+    "paired_differences": {
+        "base_minimum_one_slot": {
+            "recall_at_10": {
+                "users": 41114,
+                "mean_delta": -0.0001594457530528773,
+                "ci95_low": -0.00032778026849616693,
+                "ci95_high": 9.639607525750265e-06
+            },
+            "precision_at_10": {
+                "users": 41114,
+                "mean_delta": -8.999367612005642e-05,
+                "ci95_low": -0.0002116067519579705,
+                "ci95_high": 4.134844578489076e-05
+            },
+            "ndcg_at_10": {
+                "users": 41114,
+                "mean_delta": -7.634156347177691e-05,
+                "ci95_low": -0.0001739732972099699,
+                "ci95_high": 1.2399418209016775e-05
+            },
+            "novel_recall_at_10": {
+                "users": 33652,
+                "mean_delta": -0.00019551156079669588,
+                "ci95_low": -0.0006657101685648494,
+                "ci95_high": 0.0002855093737588519
+            },
+            "novel_hit_rate": {
+                "users": 33652,
+                "mean_delta": -0.001099488886247474,
+                "ci95_low": -0.0026744324260073696,
+                "ci95_high": 0.0004160228218233686
+            },
+            "repeat_recall_at_10": {
+                "users": 37940,
+                "mean_delta": 0.0,
+                "ci95_low": 0.0,
+                "ci95_high": 0.0
+            }
+        },
+        "base_zero_slots": {
+            "recall_at_10": {
+                "users": 41114,
+                "mean_delta": -0.01296802417457246,
+                "ci95_low": -0.01347572787893089,
+                "ci95_high": -0.012479025199436182
+            },
+            "precision_at_10": {
+                "users": 41114,
+                "mean_delta": -0.014065768351413143,
+                "ci95_low": -0.014462226978644742,
+                "ci95_high": -0.013652223087026316
+            },
+            "ndcg_at_10": {
+                "users": 41114,
+                "mean_delta": -0.009926823497390736,
+                "ci95_low": -0.010252267950742775,
+                "ci95_high": -0.009633506777401091
+            },
+            "novel_recall_at_10": {
+                "users": 33652,
+                "mean_delta": 0.009049760165531528,
+                "ci95_low": 0.008402070705017792,
+                "ci95_high": 0.009721412314505214
+            },
+            "novel_hit_rate": {
+                "users": 33652,
+                "mean_delta": 0.042226316415071914,
+                "ci95_low": 0.040086770474266016,
+                "ci95_high": 0.04445501010341139
+            },
+            "repeat_recall_at_10": {
+                "users": 37940,
+                "mean_delta": -0.02798286395914806,
+                "ci95_low": -0.028859819868787908,
+                "ci95_high": -0.02715566744283216
+            }
+        }
+    },
+    "uncertainty": {
+        "method": "Paired user bootstrap; percentile 95% marginal intervals; conditional on eligible truth for repeat/novel metrics.",
+        "samples": 2000,
+        "seed": 42,
+        "limitation": "Development-cohort intervals conditional on fitted models; no adjustment for earlier validation-driven architecture selection or multiple metrics."
+    },
+    "evaluation_seconds": 226.93160729994997,
+    "final_test_used": false
+}
