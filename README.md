@@ -18,7 +18,7 @@ RecoMart combines temporal data engineering, candidate retrieval, learned rankin
 | Serving | FastAPI, versioned PostgreSQL snapshots, Redis caching, local outage fallback |
 | Interface | Responsive Streamlit demo with recommendations, catalog search, saved lists, and model results |
 | Verification | **135 tests passed**, including six live PostgreSQL tests; **99 sealed artifacts** |
-| Status | Offline evaluation and local application complete; deployment and monitoring are next |
+| Status | Offline evaluation, local app, and reproducible Compose startup complete; monitoring and access controls are next |
 
 ## The problem
 
@@ -127,7 +127,27 @@ This repository contains **source code, tests, frozen configuration, and aggrega
 
 Running the real API requires the matching local serving artifacts listed in the [API guide](docs/serving_api.md#artifact-loading-and-integrity). A fresh clone can run fixture-based tests without the Instacart data; it cannot immediately serve the full catalog. See [data preparation](data/README.md) and the [final-experiment prerequisites](docs/final_test.md#artifacts-and-reproduction) before attempting a rebuild.
 
-### 1. Create the environment
+### Option A: Compose startup
+
+The reproducible local stack builds one image, starts PostgreSQL and Redis,
+imports the sealed snapshot, starts FastAPI, then starts the Streamlit demo.
+It still needs a local artifact root containing the ignored serving files.
+
+```powershell
+Copy-Item deploy/compose.env.example .env
+notepad .env
+docker compose up --build
+```
+
+Set `RECOMART_ARTIFACT_ROOT` in `.env` to the host path containing `configs/`,
+`models/`, and `data/processed/`. Open the local [demo](http://127.0.0.1:8501),
+[interactive API docs](http://127.0.0.1:8000/docs), or
+[health endpoint](http://127.0.0.1:8000/health). See the
+[deployment guide](docs/deployment.md) for image-only commands and teardown.
+
+### Option B: Python processes
+
+#### 1. Create the environment
 
 The current environment was verified on **Windows with Python 3.14**. The following commands use PowerShell and run from the repository root:
 
@@ -140,7 +160,7 @@ py -3.14 -m venv .venv
 
 The API and demo do not need Spark, PyTorch, XGBoost, or test labels at runtime. The full project environment uses `requirements-lock.txt`; the neural experiments require a separately configured PyTorch environment. Lock files record the tested Windows/Python environment rather than promising compatibility on every platform.
 
-### 2. Start the API
+#### 2. Start the API
 
 Once the matching serving artifacts are available, the simplest mode uses the local snapshot:
 
@@ -157,7 +177,7 @@ For PostgreSQL and Redis, configure the variables documented in [`.env.example`]
 
 These commands assume the database and cache already exist. The [backend guide](docs/database_cache.md) also documents the isolated services prepared on the development machine; its helper is not an installer for a fresh clone.
 
-### 3. Start the demo
+#### 3. Start the demo
 
 In a second terminal, from the same repository root:
 
@@ -227,6 +247,9 @@ src/
 demo/            Streamlit interface, HTTP client, visual system
 configs/         Frozen architecture contract
 .streamlit/      Demo theme and local server settings
+deploy/          Compose environment template
+Dockerfile       Shared API/demo container image
+compose.yaml     Local API/demo/PostgreSQL/Redis stack
 tests/           Data, model, API, backend, and interface checks
 results/         Aggregate benchmark evidence
 docs/            Decisions, reports, and operating guides
@@ -246,12 +269,13 @@ scripts/         Helpers for the prepared local backend services
 | [Serving API](docs/serving_api.md) | Runtime contract, integrity checks, and endpoints |
 | [PostgreSQL and Redis](docs/database_cache.md) | Publication, caching, configuration, and recovery |
 | [Demo](docs/demo.md) | Interface behavior, palette, and verification |
+| [Deployment](docs/deployment.md) | Docker image, Compose startup, artifact mounting, and teardown |
 | [Benchmark index](results/benchmarks/README.md) | Final results and development evidence |
 
 ## Scope and next steps
 
-**Complete:** temporal data pipeline; baseline and retrieval experiments; selected ranker; frozen final evaluation; API; PostgreSQL/Redis integration; responsive local demo.
+**Complete:** temporal data pipeline; baseline and retrieval experiments; selected ranker; frozen final evaluation; API; PostgreSQL/Redis integration; responsive local demo; reproducible Docker Compose startup.
 
-**Next:** deployment packaging and reproducible service startup, authentication and rate limits before public exposure, request/error metrics, and health alerts.
+**Next:** authentication and rate limits before public exposure, request/error metrics, health alerts, and a versioned artifact bundle.
 
 The application currently serves a static historical snapshot. It does not ingest live orders, update rankings online, measure conversion, or persist shopping lists across sessions. The underlying dataset is supplied by Instacart; obtain and use it under its applicable terms. It is not redistributed here.

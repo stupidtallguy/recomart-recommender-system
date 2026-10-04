@@ -1,0 +1,86 @@
+name: recomart
+
+services:
+  postgres:
+    image: postgres:18
+    environment:
+      POSTGRES_DB: recomart
+      POSTGRES_USER: recomart
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-recomart_dev_password}
+    ports:
+      - "${POSTGRES_PORT:-55432}:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U recomart -d recomart"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  redis:
+    image: redis:8
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-recomart_dev_password}
+    command: ["sh", "-c", "redis-server --appendonly no --maxmemory 128mb --maxmemory-policy allkeys-lru --requirepass \"$${REDIS_PASSWORD}\""]
+    ports:
+      - "${REDIS_PORT:-56379}:6379"
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a \"$${REDIS_PASSWORD}\" ping | grep PONG"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  importer:
+    build: .
+    image: recomart-app:local
+    command: ["python", "-m", "src.serving.import_snapshot", "--artifact-root", "/artifacts"]
+    environment:
+      RECOMART_DATABASE_URL: postgresql://recomart:${POSTGRES_PASSWORD:-recomart_dev_password}@postgres:5432/recomart
+    volumes:
+      - ${RECOMART_ARTIFACT_ROOT:-.}:/artifacts:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
+
+  api:
+    build: .
+    image: recomart-app:local
+    command: ["python", "-m", "uvicorn", "src.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+    environment:
+      RECOMART_ARTIFACT_ROOT: /artifacts
+      RECOMART_DATABASE_URL: postgresql://recomart:${POSTGRES_PASSWORD:-recomart_dev_password}@postgres:5432/recomart
+      RECOMART_REDIS_URL: redis://:${REDIS_PASSWORD:-recomart_dev_password}@redis:6379/0
+      RECOMART_CACHE_TTL_SECONDS: ${RECOMART_CACHE_TTL_SECONDS:-3600}
+    ports:
+      - "${API_PORT:-8000}:8000"
+    volumes:
+      - ${RECOMART_ARTIFACT_ROOT:-.}:/artifacts:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      importer:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health', timeout=3).read()"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
+
+  demo:
+    build: .
+    image: recomart-app:local
+    command: ["python", "-m", "streamlit", "run", "demo/app.py", "--server.address", "0.0.0.0", "--server.port", "8501"]
+    environment:
+      RECOMART_API_URL: http://api:8000
+    ports:
+      - "${DEMO_PORT:-8501}:8501"
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  postgres-data:

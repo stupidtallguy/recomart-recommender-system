@@ -109,6 +109,8 @@ and [AppTest](https://docs.streamlit.io/develop/api-reference/app-testing/st.tes
 
 ## Next step
 
-Prepare deployment and monitoring: reproducible service startup, authentication
-and rate limits before public access, request/error metrics, and health alerts.
-This demo remains a local interface over a static historical snapshot.
+Reproducible Docker Compose startup is documented in the
+[deployment guide](deployment.md). The remaining production work is
+authentication and rate limits before public access, request/error metrics,
+health alerts, and a versioned serving-artifact bundle. This demo remains a
+local interface over a static historical snapshot.

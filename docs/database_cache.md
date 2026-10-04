@@ -159,6 +159,6 @@ and [Redis on Windows through WSL](https://redis.io/docs/latest/operate/oss_and_
 ## Next step
 
 The [Streamlit demo](demo.md) is now connected to the API for shopper selection,
-recommendations, catalog browsing, and visible fallback behavior. Public
-deployment, authentication, monitoring, and ingestion of new purchases remain
-separate work.
+recommendations, catalog browsing, and visible fallback behavior. Reproducible
+Docker Compose startup is documented in the [deployment guide](deployment.md).
+Authentication, monitoring, and ingestion of new purchases remain separate work.

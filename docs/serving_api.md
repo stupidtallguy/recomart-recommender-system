@@ -4,6 +4,7 @@ The FastAPI service serves the frozen recommendations and product metadata from
 one verified, read-only snapshot. Loading happens once at startup; requests use
 the unchanged evaluated fallback policy. Optional PostgreSQL storage and Redis
 caching are implemented; see the [backend setup guide](database_cache.md).
+The [deployment guide](deployment.md) documents Docker and Compose startup.
 The command below starts snapshot-only mode when no backend URLs are set.
 
 ## Run locally
@@ -149,5 +150,6 @@ authentication, rate limits, and TLS remain future work.
 
 PostgreSQL storage and Redis caching are complete and verified; see the
 [integration guide](database_cache.md). The [Streamlit demo](demo.md) is also
-complete, including new read-only explorer endpoints. Next: deployment and
-monitoring.
+complete, including new read-only explorer endpoints. Reproducible Docker
+Compose startup is documented in the [deployment guide](deployment.md). Next:
+authentication, rate limits, metrics, and monitoring.
