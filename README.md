@@ -117,6 +117,20 @@ The interface uses **navy `#091540`**, **blue `#1B2CC1`**, and **periwinkle `#76
 | **Saved list** | Save/remove products for each shopper and export a CSV shopping list. |
 | **Model report** | Compare six final-test policies and switch between ranking metrics. |
 
+### Interface previews
+
+**For you** — ranked picks for a shopper's next basket.
+
+![RecoMart For you page showing the next-basket recommendations](docs/assets/recomart-for-you.png)
+
+**Explore catalog** — search and browse products by department.
+
+![RecoMart Explore catalog page showing product cards and filters](docs/assets/recomart-explore-catalog.png)
+
+**Model report** — final-test metrics and model comparisons.
+
+![RecoMart Model report page showing recall, precision, NDCG, and a model comparison](docs/assets/recomart-model-report.png)
+
 The UI includes loading, empty, degraded-service, and retry states. Saved lists last for the current Streamlit session and can be downloaded. Recurring favorites are a summary, not complete order history; same-aisle browsing is not learned item similarity. Product art represents categories, and there are no live prices or checkout. [Demo guide →](docs/demo.md)
 
 ## Run locally
